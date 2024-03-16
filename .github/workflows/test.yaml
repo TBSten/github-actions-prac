@@ -1,0 +1,25 @@
+name: Pull Request Check
+
+on: [pull_request]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  test-continue-on-error:
+    runs-on: ubuntsu-latest
+    steps:
+      - id: test-step
+        run: exit 1
+        continue-on-error: true
+      - if: ${{ steps.test-step.outcome == 'failure' }}
+        run: echo "failure"
+      - if: ${{ steps.test-step.outcome == 'failure' }}
+        run: exit 1
+
+  test-failure:
+    runs-on: ubuntsu-latest
+    steps:
+      - run: exit 1
+      - if: failure()
+        run: echo "failure"
