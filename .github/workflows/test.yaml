@@ -1,4 +1,6 @@
-name: Pull Request Check
+# test continue-on-error and failure()
+
+name: Test
 
 on: [pull_request]
 
@@ -7,8 +9,9 @@ permissions:
 
 jobs:
   test-continue-on-error:
-    runs-on: ubuntsu-latest
+    runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - id: test-step
         run: exit 1
         continue-on-error: true
@@ -18,8 +21,9 @@ jobs:
         run: exit 1
 
   test-failure:
-    runs-on: ubuntsu-latest
+    runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - run: exit 1
       - if: failure()
         run: echo "failure"
