@@ -1,4 +1,6 @@
-name: Pull Request Check
+# test continue-on-error and failure()
+
+name: Test
 
 on: [pull_request]
 
